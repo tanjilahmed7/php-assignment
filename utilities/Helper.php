@@ -1,5 +1,5 @@
 <?php
-require 'Database.php';
+require './classes/Database.php';
 
 trait Helper{
     private $conn;
