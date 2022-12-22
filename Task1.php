@@ -5,7 +5,7 @@ require 'Database.php';
  * Class Task1
  * Description: Show all categories with total item and order categories by total Items
  */
-class task1{
+class Task1{
     // DB stuff
     private $conn;
 

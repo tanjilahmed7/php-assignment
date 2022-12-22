@@ -21,7 +21,12 @@ class Task2{
         $stmt->execute();
         return $stmt;
     }
-    // Define a function to build the tree structure
+
+    /**
+     * @param $categories
+     * @param $parentId
+     * @return array
+     */
     public function buildTree($categories, $parentId = 0) {
         // Initialize an empty array to store the tree structure
         $tree = array();
@@ -66,6 +71,11 @@ class Task2{
         return $tree;
     }
 
+    /**
+     * @param $categories
+     * @param $parentId
+     * @return int|mixed
+     */
     protected function  getChildrenNumItems($categories, $parentId = 0) {
         $num_items = 0;
         foreach ($categories as $category) {
@@ -84,6 +94,11 @@ class Task2{
         return $num_items;
     }
 
+    /**
+     * @param $categories
+     * @param $parentId
+     * @return bool
+     */
     protected function hasChildren($categories, $parentId = 0) {
         foreach ($categories as $category) {
             if ($category['ParentcategoryId'] == $parentId) {
