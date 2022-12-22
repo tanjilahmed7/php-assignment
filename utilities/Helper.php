@@ -104,6 +104,40 @@ trait Helper{
         }
         return false;
     }
+
+    public function makeMenu($tree) {
+        $html = '';
+        foreach ($tree as $node) {
+            $html .= '<li><a href="#">' . $node['name'] . ' (' . $node['num_items'] . ')</a>';
+            if (isset($node['children'])) {
+                $html .= '<ul>';
+                $html .= $this->makeMenu($node['children']);
+                $html .= '</ul>';
+            }
+            $html .= '</li>';
+        }
+        return $html;
+    }
+
+
+    /**
+     * @param $tree
+     * @return void
+     */
+    public function makeTable($tree = array()) {
+        echo '<table border="1" style="border-collapse: collapse; width: 100%;">';
+        echo '<tr>';
+        echo '<th>Category Name</th>';
+        echo '<th>Total Items</th>';
+        echo '</tr>';
+        foreach ($tree as $item) {
+            echo '<tr>';
+            echo '<td>'.$item['name'].'</td>';
+            echo '<td>'.$item['num_items'].'</td>';
+            echo '</tr>';
+        }
+        echo '</table>';
+    }
 }
 
 
