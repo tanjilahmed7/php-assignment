@@ -21,8 +21,8 @@ trait Helper{
      * @param bool $hasChildren
      * @return array
      */
-    public function buildTree($categories, $parentId = 0, $hasChildren = false) {
-
+    public function buildTree($categories, mixed $parentId = 0, bool $hasChildren = false): array
+    {
         // Initialize an empty array to store the tree structure
         $tree = array();
 
@@ -46,7 +46,7 @@ trait Helper{
                 // execute query
                 $stmt->execute();
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                $node['num_items'] = $result['num_items'];
+                $node['num_items'] = $result['num_items'] ?? 0;
                 // total children num_items add to parent num_items
                 $node['num_items'] += $this->getChildrenNumItems($categories, $category['id']);
 
@@ -68,12 +68,14 @@ trait Helper{
         return $tree;
     }
 
+
     /**
      * @param $categories
-     * @param $parentId
-     * @return int|mixed
+     * @param mixed $parentId
+     * @return mixed
      */
-    protected function  getChildrenNumItems($categories, $parentId = 0) {
+    protected function  getChildrenNumItems($categories, mixed $parentId = 0): mixed
+    {
         $num_items = 0;
         foreach ($categories as $category) {
             if ($category['ParentcategoryId'] == $parentId) {
@@ -88,7 +90,7 @@ trait Helper{
                 // execute query
                 $stmt->execute();
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                $num_items += $result['num_items'];
+                $num_items += $result['num_items'] ?? 0;
                 $num_items += $this->getChildrenNumItems($categories, $category['id']);
             }
         }

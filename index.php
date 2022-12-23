@@ -4,4 +4,6 @@
  * Author URI: https://www.linkedin.com/in/tanjil94/
  * Description: Ecommerce project for PHP developer test
  * Version: 1.0
+ * PHP Version: 8.0.8
+ * Date: 2022-12-22
  */
