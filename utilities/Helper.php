@@ -132,12 +132,13 @@ trait Helper{
         echo '</table>';
     }
 
+
     /**
      * @param $categories
-     * @param int $parentId
+     * @param mixed $parentId
      * @return bool
      */
-    protected function hasChildren($categories, int $parentId = 0): bool
+    protected function hasChildren($categories, mixed $parentId = 0): bool
     {
         foreach ($categories as $category) {
             if ($category['ParentcategoryId'] == $parentId) {
