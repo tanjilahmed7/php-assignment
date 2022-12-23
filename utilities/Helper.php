@@ -77,7 +77,11 @@ trait Helper{
         $num_items = 0;
         foreach ($categories as $category) {
             if ($category['ParentcategoryId'] == $parentId) {
-                $query = 'SELECT category.name, COUNT(DISTINCT item_category_relations.ItemNumber) AS num_items FROM item_category_relations LEFT JOIN category ON category.id = item_category_relations.categoryId WHERE category.id = '. $category['id'].' GROUP BY category.name ORDER BY num_items DESC';
+                $query = 'SELECT category.name, 
+                COUNT(DISTINCT item_category_relations.ItemNumber) AS num_items
+                FROM item_category_relations 
+                LEFT JOIN category ON category.id = item_category_relations.categoryId 
+                WHERE category.id = '. $category['id'].' GROUP BY category.name ORDER BY num_items DESC';
 
                 // prepare statement
                 $stmt = $this->conn->prepare($query);
@@ -91,21 +95,8 @@ trait Helper{
         return $num_items;
     }
 
-    /**
-     * @param $categories
-     * @param $parentId
-     * @return bool
-     */
-    protected function hasChildren($categories, $parentId = 0) {
-        foreach ($categories as $category) {
-            if ($category['ParentcategoryId'] == $parentId) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function makeMenu($tree) {
+    public function makeMenu($tree): string
+    {
         $html = '';
         foreach ($tree as $node) {
             $html .= '<li><a href="#">' . $node['name'] . ' (' . $node['num_items'] . ')</a>';
@@ -119,12 +110,12 @@ trait Helper{
         return $html;
     }
 
-
     /**
-     * @param $tree
+     * @param array $tree
      * @return void
      */
-    public function makeTable($tree = array()) {
+    public function makeTable(array $tree = []): void
+    {
         echo '<table border="1" style="border-collapse: collapse; width: 100%;">';
         echo '<tr>';
         echo '<th>Category Name</th>';
@@ -137,6 +128,21 @@ trait Helper{
             echo '</tr>';
         }
         echo '</table>';
+    }
+
+    /**
+     * @param $categories
+     * @param int $parentId
+     * @return bool
+     */
+    protected function hasChildren($categories, int $parentId = 0): bool
+    {
+        foreach ($categories as $category) {
+            if ($category['ParentcategoryId'] == $parentId) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
