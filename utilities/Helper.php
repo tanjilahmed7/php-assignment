@@ -39,7 +39,7 @@ trait Helper{
 
                 // category id to find item_category_relations table join with category table and another join with
                 // item table with itemsNumber with number get total items
-                $query = 'SELECT category.name, COUNT(DISTINCT item_category_relations.ItemNumber) AS num_items FROM item_category_relations LEFT JOIN category ON category.id = item_category_relations.categoryId WHERE category.id = '. $category['id'].' GROUP BY category.name ORDER BY num_items DESC;';
+                $query = 'SELECT category.name, COUNT(DISTINCT item_category_relations.ItemNumber) AS num_items FROM item_category_relations LEFT JOIN category ON category.id = item_category_relations.categoryId WHERE category.id = '. $category['id'].' GROUP BY category.name ORDER BY num_items DESC';
 
                 // prepare statement
                 $stmt = $this->conn->prepare($query);
@@ -77,7 +77,7 @@ trait Helper{
         $num_items = 0;
         foreach ($categories as $category) {
             if ($category['ParentcategoryId'] == $parentId) {
-                $query = 'SELECT category.name, COUNT(DISTINCT item_category_relations.ItemNumber) AS num_items FROM item_category_relations LEFT JOIN category ON category.id = item_category_relations.categoryId WHERE category.id = '. $category['id'].' GROUP BY category.name ORDER BY num_items DESC;';
+                $query = 'SELECT category.name, COUNT(DISTINCT item_category_relations.ItemNumber) AS num_items FROM item_category_relations LEFT JOIN category ON category.id = item_category_relations.categoryId WHERE category.id = '. $category['id'].' GROUP BY category.name ORDER BY num_items DESC';
 
                 // prepare statement
                 $stmt = $this->conn->prepare($query);
