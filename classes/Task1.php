@@ -3,9 +3,6 @@ require './utilities/Helper.php';
 class Task1  {
     use Helper;
 
-    /**
-     * @return mixed
-     */
     public function read() {
         return $this->query('SELECT category.id, category.name, 
                     catetory_relations.ParentcategoryId FROM category 
