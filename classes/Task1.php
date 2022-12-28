@@ -1,5 +1,5 @@
 <?php
-require './utilities/Helper.php';
+require '../utilities/Helper.php';
 class Task1  {
     use Helper;
 

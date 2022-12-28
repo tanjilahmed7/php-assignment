@@ -1,5 +1,5 @@
 <?php
-require './classes/Task1.php';
+require '../classes/Task2.php';
 
 try {
     // instantiate DB & connect
@@ -7,32 +7,32 @@ try {
     $db = $database->connect();
 
     // instantiate product object
-    $task1 = new Task1($db);
+    $task2 = new Task2($db);
 
     // query products
-    $result = $task1->read();
+    $result = $task2->read();
 
     // make a array
-    $task1_arr = array();
+    $task2_arr = array();
 
 
     while($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
-        $task1_item = array(
+        $task2_item = array(
             'id' => $id,
             'name' => $name,
             'ParentcategoryId' => !empty($ParentcategoryId) ? $ParentcategoryId : 0
         );
         // push to 'data'
-        $task1_arr[] = $task1_item;
+        $task2_arr[] = $task2_item;
     }
-    // make table name, num_items
-    $tree = $task1->buildTree($task1_arr);
-    // make table
-    $task1->makeTable($tree);
+    $tree = $task2->buildTree($task2_arr, null, true);
 
 
-
+    // make a menu
+    echo '<ul>';
+    echo $task2->makeMenu($tree);
+    echo '</ul>';
 } catch (Exception $e) {
     echo $e->getMessage();
 }

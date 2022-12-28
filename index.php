@@ -17,7 +17,7 @@ if (version_compare(PHP_VERSION, '8.0.8', '<')) {
 <h2>Ecommerce</h2>
 
 <ul>
-    <li><a href="task1.php">Task 1</a></li>
-    <li><a href="task2.php">Task 2</a></li>
+    <li><a href="./pages/task1.php">Task 1</a></li>
+    <li><a href="./pages/task2.php">Task 2</a></li>
 </ul>
 
