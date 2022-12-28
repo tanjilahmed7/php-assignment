@@ -20,11 +20,11 @@ trait Helper
 
     /**
      * @param $categories
-     * @param int $parentId
+     * @param mixed $parentId
      * @param bool $hasChildren
      * @return array
      */
-    public function buildTree($categories, $parentId = 0, $hasChildren = false)
+    public function buildTree($categories, mixed $parentId = 0, bool $hasChildren = false): array
     {
         // Initialize an empty array to store the tree structure
         $tree = array();
@@ -74,10 +74,10 @@ trait Helper
 
     /**
      * @param $categories
-     * @param mixed $parentId
-     * @return mixed
+     * @param int $parentId
+     * @return int|mixed
      */
-    protected function  getChildrenNumItems($categories, $parentId = 0)
+    protected function  getChildrenNumItems($categories, int $parentId = 0): mixed
     {
         $num_items = 0;
         foreach ($categories as $category) {
