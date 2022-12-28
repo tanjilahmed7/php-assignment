@@ -1,13 +1,16 @@
 <?php
 require './classes/Database.php';
 
-trait Helper{
+trait Helper
+{
     private $conn;
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
-    public function query($query) {
+    public function query($query)
+    {
         // prepare statement
         $stmt = $this->conn->prepare($query);
         // execute query
@@ -21,7 +24,7 @@ trait Helper{
      * @param bool $hasChildren
      * @return array
      */
-    public function buildTree($categories, mixed $parentId = 0, bool $hasChildren = false): array
+    public function buildTree($categories, $parentId = 0, $hasChildren = false)
     {
         // Initialize an empty array to store the tree structure
         $tree = array();
@@ -39,7 +42,7 @@ trait Helper{
 
                 // category id to find item_category_relations table join with category table and another join with
                 // item table with itemsNumber with number get total items
-                $query = 'SELECT category.name, COUNT(DISTINCT item_category_relations.ItemNumber) AS num_items FROM item_category_relations LEFT JOIN category ON category.id = item_category_relations.categoryId WHERE category.id = '. $category['id'].' GROUP BY category.name ORDER BY num_items DESC';
+                $query = 'SELECT category.name, COUNT(DISTINCT item_category_relations.ItemNumber) AS num_items FROM item_category_relations LEFT JOIN category ON category.id = item_category_relations.categoryId WHERE category.id = ' . $category['id'] . ' GROUP BY category.name ORDER BY num_items DESC';
 
                 // prepare statement
                 $stmt = $this->conn->prepare($query);
@@ -51,7 +54,7 @@ trait Helper{
                 $node['num_items'] += $this->getChildrenNumItems($categories, $category['id']);
 
                 // if there have no children then add to tree
-                if($hasChildren){
+                if ($hasChildren) {
                     // Recursively build the tree for the current category
                     $children = $this->buildTree($categories, $category['id'], true);
                     if ($children) {
@@ -74,7 +77,7 @@ trait Helper{
      * @param mixed $parentId
      * @return mixed
      */
-    protected function  getChildrenNumItems($categories, mixed $parentId = 0): mixed
+    protected function  getChildrenNumItems($categories, $parentId = 0)
     {
         $num_items = 0;
         foreach ($categories as $category) {
@@ -83,7 +86,7 @@ trait Helper{
                 COUNT(DISTINCT item_category_relations.ItemNumber) AS num_items
                 FROM item_category_relations 
                 LEFT JOIN category ON category.id = item_category_relations.categoryId 
-                WHERE category.id = '. $category['id'].' GROUP BY category.name ORDER BY num_items DESC';
+                WHERE category.id = ' . $category['id'] . ' GROUP BY category.name ORDER BY num_items DESC';
 
                 // prepare statement
                 $stmt = $this->conn->prepare($query);
@@ -125,13 +128,10 @@ trait Helper{
         echo '</tr>';
         foreach ($tree as $item) {
             echo '<tr>';
-            echo '<td>'.$item['name'].'</td>';
-            echo '<td>'.$item['num_items'].'</td>';
+            echo '<td>' . $item['name'] . '</td>';
+            echo '<td>' . $item['num_items'] . '</td>';
             echo '</tr>';
         }
         echo '</table>';
     }
-
 }
-
-
